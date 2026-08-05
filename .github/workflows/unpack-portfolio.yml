@@ -1,0 +1,45 @@
+name: Publicar portfólio
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/unpack-portfolio.yml
+
+permissions:
+  contents: write
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Montar e validar pacote
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .github/payload/part-00 .github/payload/part-01 .github/payload/rest-* > /tmp/portfolio.b64
+          echo "33d62ce52b70fc34e2a30be88831279bef161908829276ada942e8d92eedc36a  /tmp/portfolio.b64" | sha256sum -c -
+          base64 --decode /tmp/portfolio.b64 > /tmp/portfolio.zip
+          echo "20d730e8491a0e3cfe98c86cd2665e9ff61bb7a19ef0b6e5a378c0fe4e4b0b1f  /tmp/portfolio.zip" | sha256sum -c -
+          unzip -t /tmp/portfolio.zip
+
+      - name: Publicar arquivos do site
+        shell: bash
+        run: |
+          set -euo pipefail
+          unzip -o /tmp/portfolio.zip -d .
+          rm -rf .github/payload
+          rm -f .github/workflows/unpack-portfolio.yml
+          rmdir .github/workflows 2>/dev/null || true
+          rmdir .github 2>/dev/null || true
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Publica portfólio SaaS com 16 projetos e 214 features"
+          git push origin main
