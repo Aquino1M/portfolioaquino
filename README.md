@@ -1,6 +1,6 @@
 # Portfólio SaaS — Aquino
 
-Site profissional estático criado do zero para apresentar **16 projetos** e um inventário de **214 capacidades**, sem expor regras, prompts, credenciais ou lógica proprietária.
+Portfólio profissional criado do zero para apresentar **16 projetos** e um inventário de **214 capacidades**, sem publicar regras internas, prompts, credenciais ou códigos privados dos protótipos.
 
 ## Conteúdo
 
@@ -8,7 +8,7 @@ Site profissional estático criado do zero para apresentar **16 projetos** e um 
 - 5 produtos publicados e 11 protótipos funcionais/conceituais.
 - 214 features filtráveis por projeto.
 - Busca, filtros, modais de case e tema claro/escuro.
-- Capas locais para protótipos e capturas dinâmicas para sites publicados.
+- Capas profissionais e prévias dos produtos publicados.
 - Layout responsivo para desktop e celular.
 
 ## Distribuição das features
@@ -33,14 +33,18 @@ Site profissional estático criado do zero para apresentar **16 projetos** e um 
 | TikTok Blocklist | 11 | Protótipo preservado |
 | **Total** | **214** | **16 projetos** |
 
-## Publicar na Vercel
+## Publicação na Vercel
 
-Publique **somente esta pasta `portfolio-vercel`**. A pasta irmã `backup-projetos-nao-publicar` contém os arquivos originais e não deve ser enviada ao site público.
+Este repositório está pronto para ser importado diretamente na Vercel:
 
-1. Importe esta pasta em um repositório ou na Vercel.
-2. Em **Framework Preset**, use **Other**.
-3. Não configure comando de build.
-4. Use `.` como diretório de saída, se solicitado.
+1. Na Vercel, escolha **Add New Project**.
+2. Importe `Aquino1M/portfolioaquino`.
+3. Mantenha o diretório raiz como `.`.
+4. A configuração de build será carregada automaticamente de `vercel.json`.
 5. Clique em **Deploy**.
 
-Os dados ficam em `assets/js/data.js`; os textos gerais, em `index.html`; e o visual, em `assets/css/styles.css`.
+Durante o build, `scripts/build.sh` monta o pacote público, valida dois hashes SHA-256 e extrai o site em `dist/`. A Vercel publica essa pasta automaticamente.
+
+## Segurança
+
+Os arquivos originais dos 11 protótipos e a pasta de backup privado **não foram enviados para este repositório**. O GitHub contém somente a apresentação pública necessária para o portfólio.
